@@ -5,8 +5,8 @@ services:
   web:
     environment:
       - POSTGRES_HOST=postgres
+#    build: docker/web
     image: ovil/ltws-web
-    # build: docker/web
     links:
       - postgres
     ports:
@@ -22,8 +22,10 @@ services:
     ports:
       - '5432'
   tank:
+#    build: docker/tank
     image: ovil/ltws-tank
-    # build: docker/tank
+#    environment:
+#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
     volumes:
       - ./:/data
     cap_add: [NET_ADMIN]

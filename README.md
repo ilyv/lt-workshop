@@ -18,6 +18,20 @@ Load testing workshop project.
 
 Также нужно склонировать этот репозиторий к себе.
 
+### Дополнительно, если у вас Windows
+Раскомментируйте в файле `docker-compose.yml` следующие строки
+``` bash
+#    environment:
+#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+```
+
+и измените значение `volumes` в сервисе `tank` на абсолютный
+путь к этому репозиторию на вашей машине. Часть `:/data` в конце оставляем. Например
+``` bash
+volumes:
+  - C:\Users\developer\Documents\lt-workshop:/data
+```
+
 ### Запуск
 Запускаем Докер. В его терминале (Windows, Mac OS) переходим в каталог с этим репозиторием. Команда `cd`. Пример для Windows
 ``` bash
