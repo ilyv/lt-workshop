@@ -1,0 +1,23 @@
+phantom:
+  address: web:3000
+  uris:
+    # - /items
+    - /js/index.js
+  load_profile:
+    load_type: rps
+    # load_type: instances
+    schedule: line(1, 150, 1m)
+    # schedule: line(1, 20, 1m)
+  instances: 200
+  loop: 10000
+autostop:
+  autostop:
+    - quantile(85,100ms,5s)
+console:
+  enabled: true
+overload:
+  enabled: true
+  token_file: /data/token.txt
+telegraf:
+  enabled: true
+  package: yandextank.plugins.Telegraf
