@@ -16,8 +16,13 @@ autostop:
 console:
   enabled: true
 overload:
-  enabled: true
+  enabled: false
   token_file: /data/token.txt
 telegraf:
-  enabled: true
+  enabled: false
   package: yandextank.plugins.Telegraf
+influx:
+  enabled: true
+  address: influxdb
+  database: tank
+  tank_tag: 'mytank'

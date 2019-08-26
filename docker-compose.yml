@@ -13,7 +13,7 @@ services:
       - 3000:3000
       - "52022:22"
     mem_limit: 120m
-    cpu_shares: 2
+    cpu_shares: 1024
   postgres:
     environment:
       - POSTGRES_DB=goby_test
@@ -21,6 +21,48 @@ services:
     image: 'postgres:latest'
     ports:
       - '5432'
+  influxdb:
+    build: docker/influxdb
+    ports:
+      - 8086:8086
+  grafana:
+    build: docker/grafana
+    ports:
+      - 3001:3000
+    links:
+      - influxdb
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
   tank:
 #    build: docker/tank
     image: ovil/ltws-tank
@@ -31,3 +73,16 @@ services:
     cap_add: [NET_ADMIN]
     depends_on:
       - web
+  k6:
+    image: loadimpact/k6
+    ports:
+      - 6565:6565
+    environment:
+      - K6_OUT=influxdb=http://influxdb:8086/k6
+    entrypoint: 'tail -f /dev/null'
+    volumes:
+      - ./:/data
+    depends_on:
+      - web
+      - influxdb
+      - grafana
