@@ -38,11 +38,17 @@ volumes:
 cd C:\Users\developer\Documents\lt-workshop 
 ```
 
-Выполняем команду
+Выполняем команды
+``` bash
+docker-compose build
+```
+
 ``` bash
 docker-compose up -d
 ```
-Она скачает образы компонентов приложения и запустит их контейнеры в фоне
+
+Будут скачаны образы компонентов приложения и их контейнеры будут запущены в фоне
+
 ``` bash
 Starting ltworkshop_postgres_1 ... done
 Starting ltworkshop_web_1 ... done
@@ -51,9 +57,17 @@ Starting ltworkshop_tank_1 ... done
 
 Когда контейнеры запустятся, можно открыть запущенное приложение в браузере. Оно находится на локальном IP-адресе. На Windows и Mac OS обычно это `192.168.99.100`. Узнать можно в командной строке, выполнив
 
+##### Windows
 ``` bash
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ltworkshop_web_1
+ipconfig
 ```
+
+##### Mac OS, Linux
+``` bash
+ifconfig
+```
+
+и найти в выводе IP, начинающийся на 192.168.. или 10...
 
 Открываем в браузере на порту 3000: `http://<IP ADDRESS>:3000`. Должен открыться сайт
 
@@ -103,7 +117,7 @@ k6 run /data/k6-test.js
 В Графане доступны 3 дашборда:
 - Dashboard-Load-Test - для мониторинга тестов Яндекс.Танка
 - k6 Load Testing Results - для мониторинга тестов k6
-- Docker Monitoring - для просмотра доступных ресурсов веб-приложения
+- Docker Monitoring - для просмотра используемых ресурсов веб-приложением
 
 
 ### Полезные команды
