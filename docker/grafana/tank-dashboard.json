@@ -24,7 +24,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 7,
@@ -62,7 +62,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -147,7 +147,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 7,
@@ -183,7 +183,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -268,7 +268,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 7,
@@ -303,7 +303,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -388,7 +388,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 7,
@@ -423,7 +423,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -512,7 +512,7 @@
           "#c15c17",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "percent",
         "gauge": {
           "maxValue": 100,
@@ -580,7 +580,7 @@
             ],
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"usage_idle\") * -1 + 100 AS \"mean_usage_idle\" FROM \"cpu\" WHERE (\"host\" =~ /^$host$/) AND time > now() - 30m AND \"cpu\"='cpu-total'  GROUP BY time(30s) FILL(null)",
+            "query": "SELECT mean(\"usage_idle\") * -1 + 100 AS \"mean_usage_idle\" FROM \"cpu\" WHERE (\"host\" =~ /^$host$/) AND time > now() - 30m AND \"cpu\"='cpu-total'  GROUP BY time(10s) FILL(null)",
             "rawQuery": true,
             "refId": "A",
             "resultFormat": "time_series",
@@ -624,7 +624,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "short",
         "gauge": {
           "maxValue": 100,
@@ -740,7 +740,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "percent",
         "gauge": {
           "maxValue": 100,
@@ -809,7 +809,7 @@
             "measurement": "mem",
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"used_percent\") AS \"mean_used_percent\" FROM \"mem\" WHERE (\"host\" =~ /^$host$/) AND time > now() - 30m GROUP BY time(30s) FILL(null)",
+            "query": "SELECT mean(\"used_percent\") AS \"mean_used_percent\" FROM \"mem\" WHERE (\"host\" =~ /^$host$/) AND time > now() - 30m GROUP BY time(10s) FILL(null)",
             "rawQuery": true,
             "refId": "A",
             "resultFormat": "time_series",
@@ -859,7 +859,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "none",
         "gauge": {
           "maxValue": 100,
@@ -975,7 +975,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "decbytes",
         "gauge": {
           "maxValue": 100,
@@ -1091,7 +1091,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "format": "decbytes",
         "gauge": {
           "maxValue": 100,
@@ -1203,7 +1203,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 9,
@@ -1254,7 +1254,7 @@
             "measurement": "cpu",
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"usage_idle\") AS \"mean_usage_idle\"  FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(30s) fill(null)",
+            "query": "SELECT mean(\"usage_idle\") AS \"mean_usage_idle\"  FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(10s) fill(null)",
             "rawQuery": true,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1297,7 +1297,7 @@
             ],
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"usage_iowait\") AS \"mean_usage_iowait\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(30s) fill(null)",
+            "query": "SELECT mean(\"usage_iowait\") AS \"mean_usage_iowait\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(10s) fill(null)",
             "rawQuery": true,
             "refId": "B",
             "resultFormat": "time_series",
@@ -1334,7 +1334,7 @@
             ],
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"usage_user\") AS \"mean_usage_user\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(30s) fill(null)",
+            "query": "SELECT mean(\"usage_user\") AS \"mean_usage_user\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(10s) fill(null)",
             "rawQuery": true,
             "refId": "C",
             "resultFormat": "time_series",
@@ -1371,7 +1371,7 @@
             ],
             "orderByTime": "ASC",
             "policy": "default",
-            "query": "SELECT mean(\"usage_system\") AS \"mean_usage_system\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(30s) fill(null)",
+            "query": "SELECT mean(\"usage_system\") AS \"mean_usage_system\" FROM \"cpu\" WHERE time > now() - 30m AND (\"host\" =~ /^$host$/) GROUP BY time(10s) fill(null)",
             "rawQuery": true,
             "refId": "D",
             "resultFormat": "time_series",
@@ -1438,7 +1438,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 9,
@@ -1474,7 +1474,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1517,7 +1517,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1560,7 +1560,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1645,7 +1645,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 9,
@@ -1681,7 +1681,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1724,7 +1724,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1767,7 +1767,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1810,7 +1810,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1895,7 +1895,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "myinfluxdb",
+        "datasource": "tank-influxdb",
         "fill": 1,
         "gridPos": {
           "h": 9,
@@ -1931,7 +1931,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -1976,7 +1976,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -2019,7 +2019,7 @@
             "groupBy": [
               {
                 "params": [
-                  "30s"
+                  "10s"
                 ],
                 "type": "time"
               },
@@ -2114,7 +2114,7 @@
             "text": "",
             "value": ""
           },
-          "datasource": "myinfluxdb",
+          "datasource": "tank-influxdb",
           "definition": "SHOW TAG VALUES FROM \"system\" WITH KEY = \"host\"",
           "hide": 0,
           "includeAll": false,
@@ -2139,7 +2139,7 @@
             "text": "localtest",
             "value": "localtest"
           },
-          "datasource": "myinfluxdb",
+          "datasource": "tank-influxdb",
           "definition": "SHOW TAG VALUES FROM \"overall_meta\" WITH KEY = \"tank\"",
           "hide": 0,
           "includeAll": false,

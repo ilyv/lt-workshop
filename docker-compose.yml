@@ -77,14 +77,15 @@ services:
     depends_on:
       - web
   k6:
-    image: loadimpact/k6
+    build: docker/k6
     ports:
       - 6565:6565
     environment:
       - K6_OUT=influxdb=http://influxdb:8086/k6
-    entrypoint: 'tail -f /dev/null'
     volumes:
       - ./:/data
+    cap_add: [NET_ADMIN]
+    privileged: true
     depends_on:
       - web
       - influxdb

@@ -6,7 +6,7 @@ phantom:
   load_profile:
     load_type: rps
     # load_type: instances
-    schedule: line(1, 150, 1m)
+    schedule: line(1, 150, 5m)
     # schedule: line(1, 20, 1m)
   instances: 200
   loop: 10000
@@ -25,4 +25,4 @@ influx:
   enabled: true
   address: influxdb
   database: tank
-  tank_tag: 'mytank'
+  tank_tag: 'tank'
