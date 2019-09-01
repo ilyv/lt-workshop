@@ -1,15 +1,15 @@
 phantom:
   address: web:3000
   uris:
-    # - /items
-    - /js/index.js
+  - /items
+  - /js/index.js
   load_profile:
     load_type: rps
     # load_type: instances
     schedule: line(1, 150, 5m)
     # schedule: line(1, 20, 1m)
   instances: 200
-  loop: 10000
+#  loop: 10000
 autostop:
   autostop:
     - quantile(85,100ms,5s)

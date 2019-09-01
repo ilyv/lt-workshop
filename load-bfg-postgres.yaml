@@ -5,14 +5,14 @@ bfg:
   gun_config:
     class_name: LoadTest
     module_path: /data
-    module_name: bfg-test
+    module_name: bfg-test-postgres
   gun_type: ultimate
   ammofile: /data/ammo.txt
   load_profile:
     load_type: instances
-    schedule: line(1, 50, 1m)
+    schedule: line(1, 100, 1m)
   instances: 200
-  loop: 10000
+  loop: 1000000
 autostop:
   autostop:
     - quantile(85,100ms,5s)
