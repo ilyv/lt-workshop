@@ -70,9 +70,9 @@ services:
     cpu_shares: 1024
   tank:
     build: docker/tank
-    #    image: ovil/ltws-tank
-    #    environment:
-    #      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+#    image: ovil/ltws-tank
+#    environment:
+#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
     volumes:
       - ./:/data
     cap_add: [NET_ADMIN]
@@ -84,6 +84,7 @@ services:
       - 6565:6565
     environment:
       - K6_OUT=influxdb=http://influxdb:8086/k6
+#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
     volumes:
       - ./:/data
     cap_add: [NET_ADMIN]

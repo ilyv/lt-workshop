@@ -19,9 +19,19 @@ Load testing workshop project.
 Также нужно склонировать этот репозиторий к себе.
 
 ### Дополнительно, если у вас Windows
-Раскомментируйте в файле `docker-compose.yml` следующие строки
+Перед клонированием репозитория выполните
+``` bash
+git config --global core.autocrlf false
+```
+
+Раскомментируйте в файле `docker-compose.yml` следующие строки в секции `tank`
 ``` bash
 #    environment:
+#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+```
+
+и в секции `k6`
+``` bash
 #      - COMPOSE_CONVERT_WINDOWS_PATHS=1
 ```
 
@@ -29,8 +39,18 @@ Load testing workshop project.
 путь к этому репозиторию на вашей машине. Часть `:/data` в конце оставляем. Например
 ``` bash
 volumes:
-  - C:\Users\developer\Documents\lt-workshop:/data
+  - C:/Users/developer/Documents/lt-workshop:/data
 ```
+
+Если у вас Docker Desktop для Windows 10, то в секции `cadvisor` нужно закомментировать
+``` bash
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+```
+
 
 ### Запуск
 Запускаем Докер. В его терминале (Windows, Mac OS) переходим в каталог с этим репозиторием. Команда `cd`. Пример для Windows
