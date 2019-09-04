@@ -1,14 +1,18 @@
 import { group, check, sleep } from "k6";
-import { Counter, Rate } from "k6/metrics";
+import { Counter, Rate, Trend } from "k6/metrics";
 import http from "k6/http";
 
 export let options = {
  stages: [
-    { duration: "30s", target: 20 },
-    { duration: "1m30s", target: 10  },
-    { duration: "20s", target: 100 },
+    { duration: "30s", target: 5 },
+    { duration: "30s", target: 5  },
+    { duration: "30s", target: 100 },
+     { duration: "30s", target: 100 },
   ]
 };
+
+let myTrend1 = new Trend("waiting_time_create");
+let myTrend2 = new Trend("waiting_time_delete");
 
 export default function() {
 //  Create an item
@@ -20,15 +24,20 @@ export default function() {
         params
         );
     check(res, {
-        "status is 200": (res) => res.status === 200
+        "status is 200": (res) => res.status === 200,
+        "status isn't 200": (res) => res.status !== 200
     });
+    myTrend1.add(Math.round(res.timings.duration) / 1000);
+
 
 //  Delete an item
     let item_id = JSON.parse(res.body).id;
     res = http.del("http://web:3000/items/" + item_id);
     check(res, {
-        "status is 200": (res) => res.status === 200
+        "status is 200": (res) => res.status === 200,
+        "status isn't 200": (res) => res.status !== 200
     });
+    myTrend2.add(Math.round(res.timings.duration) / 1000);
 
     sleep(10 * Math.random());
 }
