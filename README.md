@@ -42,16 +42,6 @@ volumes:
   - C:/Users/developer/Documents/lt-workshop:/data
 ```
 
-Если у вас Docker Desktop для Windows 10, то в секции `cadvisor` нужно закомментировать
-``` bash
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-```
-
-
 ### Запуск
 Запускаем Докер. В его терминале (Windows, Mac OS) переходим в каталог с этим репозиторием. Команда `cd`. Пример для Windows
 ``` bash
@@ -59,12 +49,9 @@ cd C:\Users\developer\Documents\lt-workshop
 ```
 
 Выполняем команды
-``` bash
-docker-compose build
-```
 
 ``` bash
-docker-compose up -d
+docker-compose -f docker/docker-compose-<Версия файла для вашей ОС>.yml up -d
 ```
 
 Будут скачаны образы компонентов приложения и их контейнеры будут запущены в фоне
