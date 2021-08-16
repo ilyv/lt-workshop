@@ -6,7 +6,7 @@ Load testing workshop project.
 ## Архитектура
 <img src="./content/design.svg" width=300px>
 
-Конфигурация приложения описана в [docker-compose.yml](./docker-compose.yml). В качестве веб-сервиса используется [goby-lang/sample-web-app](https://github.com/goby-lang/sample-web-app)
+Конфигурация приложения описана в [docker-compose.yml](./docker/docker-compose.yml). В качестве веб-сервиса используется [goby-lang/sample-web-app](https://github.com/goby-lang/sample-web-app)
 
 ## Установка
 Чтобы начать пользоваться проектом нужно установить Docker. Docker - это набор инструментов изолированного запуска программ, которые написаны для ОС Linux. Каждая программа (приложение) стартует в отдельном Docker-контейнере, которым можно управлять командами из терминала. Инструкции по установке для
@@ -16,7 +16,9 @@ Load testing workshop project.
 - [Mac OS](https://docs.docker.com/docker-for-mac/install/)
 - [Linux](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1). Дополнительно нужно установить [docker-compose](https://docs.docker.com/compose/install/)
 
-Также нужно склонировать этот репозиторий к себе.
+Также нужно склонировать этот репозиторий к себе. Если у вас не установлена система контроля версий Git, выполните установку [по ссылке](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+
+Желательно, чтобы был установлен удобный текстовый редактор, например, [VS Code](https://code.visualstudio.com/).
 
 ### Дополнительно, если у вас Windows
 Перед клонированием репозитория выполните
@@ -24,45 +26,47 @@ Load testing workshop project.
 git config --global core.autocrlf false
 ```
 
-Раскомментируйте в файле `docker-compose.yml` следующие строки в секции `tank`
-``` bash
-#    environment:
-#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
-```
+На Windows 10 при запуске Docker Desktop может быть ошибка **Docker failed to initialize**.
+В этом случае выполните [Шаг 4 из инструкции](https://docs.microsoft.com/en-gb/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package)
+для обновления Windows Subsystem for Linux (WSL).
 
-и в секции `k6`
-``` bash
-#      - COMPOSE_CONVERT_WINDOWS_PATHS=1
-```
+На Windows 10 можно ограничить ресурсы Docker-хоста (например, оперативную память, CPU). Для этого:
+1. Скопируйте файл `config/windows/.wslconfig` в свой домашний каталог.
+2. Запустите терминал PowerShell от имени администратора и выполните ` wsl --shutdown`.
 
-и измените значение `volumes` в сервисе `tank` на абсолютный
-путь к этому репозиторию на вашей машине. Часть `:/data` в конце оставляем. Например
-``` bash
-volumes:
-  - C:/Users/developer/Documents/lt-workshop:/data
-```
 
 ### Запуск
-Запускаем Докер. В его терминале (Windows, Mac OS) переходим в каталог с этим репозиторием. Команда `cd`. Пример для Windows
+Запускаем Докер. В терминале (для Windows - это программа PowerShell) переходим в каталог `docker` в этом репозитории. Команда `cd`. Пример для Windows
 ``` bash
-cd C:\Users\developer\Documents\lt-workshop 
+cd C:\Users\developer\Documents\lt-workshop\docker 
 ```
 
 Выполняем команды
 
 ``` bash
-docker-compose -f docker/docker-compose-<Версия файла для вашей ОС>.yml up -d
+docker-compose up -d
 ```
 
 Будут скачаны образы компонентов приложения и их контейнеры будут запущены в фоне
 
 ``` bash
-Starting ltworkshop_postgres_1 ... done
-Starting ltworkshop_web_1 ... done
-Starting ltworkshop_tank_1 ... done
+Starting docker_postgres_1 ... done
+Starting docker_influxdb_1 ... done
+Starting docker_grafana_1  ... done
+Starting telegraf          ... done
+Starting docker_web_1      ... done
+Starting docker_tank_1     ... done
+Starting docker_k6_1       ... done
 ```
 
-Когда контейнеры запустятся, можно открыть запущенное приложение в браузере. Оно находится на локальном IP-адресе. Обычно это `localhost` или `192.168.99.100`. Узнать можно в командной строке, выполнив
+Когда контейнеры запустятся, можно открыть запущенное приложение в браузере. Обычно оно доступно на localhost-е.
+
+http://localhost:3000 - веб-приложение.
+
+http://localhost:3001 - Grafana.
+
+
+Если `localhost` не работает, узнайте IP Docker-хоста в командной строке, выполнив
 
 ##### Windows
 ``` bash
@@ -74,7 +78,7 @@ ipconfig
 ifconfig
 ```
 
-и найти в выводе IP, начинающийся на 192.168.. или 10...
+найдите в выводе IP, начинающийся на 192.168.. или 10...
 
 Открываем в браузере на порту 3000: `http://<IP ADDRESS>:3000`. Должен открыться сайт
 
