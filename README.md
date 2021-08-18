@@ -104,6 +104,9 @@ Yandex.Tank Docker image
 yandex-tank -c /data/load.yaml
 ```
 
+Для остановки теста нажмите `Ctrl + C`. Для выхода из докер-контейнера выполните команду `exit`.
+
+
 Графики результатов НТ загружаются на сервис [OverLoad](https://overload.yandex.net)
 
 <img src="./content/overload-test-page.jpg" width=500px>
@@ -123,12 +126,14 @@ docker-compose exec k6 sh
 k6 run /data/k6-test.js
 ```
 
+Для остановки теста нажмите `Ctrl + C`. Для выхода из докер-контейнера выполните команду `exit`.
+
 ### Grafana
 Открываем в браузере на порту 3001: `http://<IP ADDRESS>:3001`.
 В Графане доступны 3 дашборда:
-- Yandex.Tank - для мониторинга тестов Яндекс.Танка
-- k6 - для мониторинга тестов k6
-- Docker monitoring - для просмотра используемых ресурсов веб-приложением
+- Yandex tank - для мониторинга тестов Яндекс.Танка
+- k6 Load Testing Results - для мониторинга тестов k6
+- Telegraf: system dashboard - для просмотра используемых ресурсов докер-хостом
 
 
 ### Полезные команды
