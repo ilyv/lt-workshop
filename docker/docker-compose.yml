@@ -9,8 +9,8 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - PGDATA=/data/postgres
     image: "postgres:9.6.23-alpine"
-    mem_limit: 120m
-    cpu_shares: 128
+    mem_limit: 128M
+    cpus: 0.1
     ports:
       - 5432:5432
     healthcheck:
@@ -20,6 +20,8 @@ services:
   influxdb:
     image: influxdb:1.8-alpine
     platform: linux/x86_64
+    mem_limit: 1024M
+    cpus: 0.5
     ports:
       - 8086:8086
     environment:
@@ -33,6 +35,7 @@ services:
     image: telegraf:1.19.2-alpine
     container_name: telegraf
     platform: linux/x86_64
+    mem_limit: 128M
     depends_on:
       - influxdb
     links:
@@ -44,6 +47,7 @@ services:
   grafana:
     image: grafana/grafana:8.1.1
     platform: linux/x86_64
+    mem_limit: 128M
     ports:
       - 3001:3000
     links:
@@ -70,8 +74,8 @@ services:
     ports:
       - 3000:3000
       - "52022:22"
-    mem_limit: 120m
-    cpu_shares: 1024
+    mem_limit: 64M
+    cpus: 0.1
     entrypoint: goby server.gb --bind 0.0.0.0:3000 wsgi
   tank:
     image: direvius/yandex-tank

@@ -174,6 +174,11 @@ ltworkshop_web_1       /bin/sh -c service    Up      0.0.0.0:52022->22/t
 docker-compose up -d web
 ```
 
+Смотрим потребление ресурсов контейнерами
+``` bash
+docker stats
+```
+
 Останавливаем все контейнеры
 ``` bash
 docker-compose stop
